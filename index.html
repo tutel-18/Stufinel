@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Stufinel helps students allocate allowance through Student Basic and Student Pro budget modes."
+    />
+    <title>Stufinel | Student Allowance Allocator</title>
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+    <link rel="apple-touch-icon" href="./assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-orb orb-one" aria-hidden="true"></div>
+    <div class="page-orb orb-two" aria-hidden="true"></div>
+
+    <main class="app-shell" id="appShell" data-mode="basic">
+      <section class="hero panel reveal">
+        <div class="hero-copy">
+          <p class="eyebrow">Student Budget Allocation App</p>
+          <h1>Stufinel</h1>
+          <p class="hero-description">
+            Set your priorities, press calculate, and Stufinel will jump you to
+            your live allocation.
+          </p>
+          <div class="brand-traits">
+            <span>Save</span>
+            <span>Spend</span>
+            <span>Invest</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-logo-card">
+            <span class="hero-logo-accent accent-shell"></span>
+            <span class="hero-logo-accent accent-track"></span>
+            <span class="hero-chip-orbit orbit-mode"></span>
+            <span class="hero-chip-orbit orbit-save"></span>
+            <span class="hero-chip-orbit orbit-warm"></span>
+            <div class="hero-logo-frame">
+              <img src="./assets/hero-money.jpg" alt="" class="hero-logo" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace" id="workspace">
+        <div class="control-column" id="controlColumn">
+          <article class="panel reveal">
+            <div class="panel-head">
+              <p class="eyebrow">Step 1</p>
+              <h2>Choose your mode</h2>
+              <p>
+                Student Basic focuses on present needs and savings. Student Pro
+                adds an Invest category for future growth.
+              </p>
+            </div>
+
+            <div class="mode-toggle" id="modeToggle">
+              <button
+                class="mode-button is-active"
+                type="button"
+                data-mode="basic"
+                aria-pressed="true"
+              >
+                Student Basic
+                <span>Spend + Save</span>
+              </button>
+              <button
+                class="mode-button"
+                type="button"
+                data-mode="pro"
+                aria-pressed="false"
+              >
+                Student Pro
+                <span>Spend + Save + Invest</span>
+              </button>
+            </div>
+
+            <p class="mode-description" id="modeDescription">
+              Student Basic keeps your plan focused on spending and saving only.
+            </p>
+
+            <label class="field-label" for="allowanceInput">Allowance</label>
+            <div class="currency-field">
+              <span>PHP</span>
+              <input
+                id="allowanceInput"
+                class="amount-input"
+                type="text"
+                inputmode="decimal"
+                placeholder="Enter your Allowance"
+              />
+            </div>
+          </article>
+
+          <article class="panel reveal">
+            <div class="panel-head">
+              <p class="eyebrow">Step 2</p>
+              <h2>Set your priorities</h2>
+              <p>
+                Drag each slider to show what matters most. Higher priority means
+                Stufinel will give that category a larger share of your allowance.
+              </p>
+            </div>
+
+            <div class="priority-list" id="priorityList"></div>
+          </article>
+
+          <article class="panel reveal calculate-panel">
+            <div class="panel-head">
+              <p class="eyebrow">Step 3</p>
+              <h2>Calculate your budget</h2>
+              <p>
+                When you are ready, Stufinel runs a short loading animation and
+                moves you to the live allocation section.
+              </p>
+            </div>
+
+            <button id="calculateButton" class="calculate-button" type="button">
+              <span class="calculate-label">Calculate Budget</span>
+              <span class="calculate-loader" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+            <p class="calculate-status" id="calculateStatus" aria-live="polite">
+              Choose a mode, set priorities, then calculate.
+            </p>
+          </article>
+        </div>
+
+        <div class="results-column is-locked" id="resultsSection">
+          <div class="results-overlay" id="resultsOverlay" aria-live="polite">
+            <div class="results-overlay-card">
+              <p class="eyebrow">Waiting for Calculation</p>
+              <h3>Set your priorities, then calculate your budget.</h3>
+              <p id="resultsOverlayText">
+                Stufinel will unlock your live allocation and scroll you here after
+                a short loading animation.
+              </p>
+            </div>
+          </div>
+
+          <div class="results-capture">
+            <article class="panel spotlight-panel reveal" id="liveAllocationPanel">
+              <div class="spotlight-head">
+                <div>
+                  <p class="eyebrow">Live Allocation</p>
+                  <h2 id="headlineTitle">Budget ready to calculate</h2>
+                  <p id="headlineText">
+                    Your allowance split will appear here after you press Calculate
+                    Budget.
+                  </p>
+                </div>
+
+                <div class="total-pill">
+                  <span>Total allowance</span>
+                  <strong id="totalAllowance">PHP 2,500.00</strong>
+                </div>
+              </div>
+
+              <div class="chart-row">
+                <div class="chart-wrap">
+                  <div class="donut-chart" id="donutChart" aria-hidden="true">
+                    <div class="donut-center">
+                      <span>Top focus</span>
+                      <strong id="topFocusPercent">--</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="legend-list" id="legendList"></div>
+              </div>
+            </article>
+
+            <section class="allocation-grid" id="allocationGrid"></section>
+          </div>
+
+          <article class="panel reveal snapshot-panel">
+            <div class="panel-head">
+              <p class="eyebrow">Budget Snapshot</p>
+              <h2>Reset your plan</h2>
+              <p id="summaryLine">
+                Screenshot your allocation so you won't forget!
+              </p>
+            </div>
+
+            <div class="action-row">
+              <button id="resetButton" class="action-button action-button-ghost" type="button">
+                Reset Allocation
+              </button>
+            </div>
+
+            <p class="status-line" id="statusLine" aria-live="polite">
+              Ready to build your allowance plan.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="brand-watermark" aria-label="Powered by Tutel System">
+        <div class="watermark-mark">
+          <img src="./assets/logo.jpg" alt="" class="watermark-logo" />
+        </div>
+        <p class="watermark-text">
+          <span>Powered by</span>
+          <strong>Tutel System</strong>
+        </p>
+      </footer>
+    </main>
+
+    <template id="priorityTemplate">
+      <article class="priority-card">
+        <div class="priority-card-head">
+          <div>
+            <h3 class="priority-title"></h3>
+            <p class="priority-copy"></p>
+          </div>
+          <span class="priority-score"></span>
+        </div>
+
+        <input class="priority-input" type="range" min="1" max="10" step="1" />
+        <div class="priority-scale">
+          <span>Lower share</span>
+          <span>Higher share</span>
+        </div>
+      </article>
+    </template>
+
+    <template id="allocationTemplate">
+      <article class="allocation-card">
+        <div class="allocation-top">
+          <div>
+            <p class="allocation-kicker"></p>
+            <h3 class="allocation-title"></h3>
+          </div>
+          <span class="allocation-percent"></span>
+        </div>
+
+        <strong class="allocation-amount"></strong>
+        <p class="allocation-copy"></p>
+
+        <div class="allocation-meter">
+          <span class="allocation-fill"></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
